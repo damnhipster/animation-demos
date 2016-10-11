@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>
+  FLIP Demo
+</title>
+<link rel="stylesheet" href="http://cache.theoutnet.com/preston-assets/2.4.9/css/outnet-2015.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div class="grid-12 gutter-10">
+  <div class="span-6 non-flip">
+    <button class="btn btn-white" onClick="toggleList()">Click me!</button>
+    <ul class="list hidden">
+      <li class="item">Item 1</li>
+      <li class="item">Item 2</li>
+      <li class="item">Item 3</li>
+    </ul>
+    <p class="campaign">Here's the rest of my page!<br/> If I'm animating because of the dropdown above, I'm causing the entire page to lag and will be causing jankiness :(</p>
+    <pre>
+      <code>
+.list {
+  height: 0;
+  overflow: hidden;
+  transition: all 3s ease-in-out;
+}
+.list.end {
+  height: 96px;
+}
+
+function toggleList() {
+  document.querySelector('.list')
+    .classList
+    .toggle('end');
+}
+</code>
+    </pre>
+  </div>
+  <div class="span-6 flip">
+    <button class="btn btn-white" onClick="toggleListFLIP()">Click me!</button>
+    <ul class="list hidden">
+      <li class="item">Item 1</li>
+      <li class="item">Item 2</li>
+      <li class="item">Item 3</li>
+    </ul>
+    <p class="campaign">Here's the rest of my page!<br> If I'm animating because of the dropdown above, I'm causing the entire page to lag and will be causing jankiness :(</p>
+    <pre>
+      <code>
+.list {
+    height: 0;
+    overflow: hidden;
+}
+.list.end {
+    height: 96px;
+}
+
+function toggleList() {
+    document.querySelector('.list')
+        .classList
+        .toggle('end');
+}
+flip.first();
+toggleList();
+flip.last();
+flip.invert();
+flip.play();
+</code>
+    </pre>
+  </div>
+</div>
+</body>
+<style>
+  .list {
+    height: 0;
+    overflow: hidden;
+    background: black;
+    color: white;
+  }
+  .list.end {
+    height: 96px;
+  }
+  .non-flip .list {
+    transition: all 3s ease-in-out;
+  }
+  .item {
+  }
+  ul {
+    padding: 0;
+  }
+  pre {
+    background: #FDFCFB;
+    border: #FFC3C3 1px solid;
+    text-align: left;
+    padding: 20px;
+  }
+  body {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+</style>
+<script>
+  function toggleList() {
+    document.querySelector('.non-flip .list')
+      .classList
+      .toggle('end');
+  }
+  function toggleListFLIP() {
+    let flip = new FLIP({
+      element: document.querySelector('.flip .list'),
+      duration: 3000,
+      easing: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 }
+    });
+    flip.first();
+    document.querySelector('.flip .list')
+      .classList
+      .toggle('end');
+    flip.last();
+    flip.invert();
+    flip.play();
+  }
+</script>
+<script src="lib/flip.js"></script>
+</html>
